@@ -16,7 +16,8 @@
     "ethers": "^5.6.8",
     "next": "^12.1.6",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "package-name": "git+https://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:x-oauth-basic@github.com/aiosivas/typescript_nextjs_dao.git"
   },
   "devDependencies": {
     "@types/node": "^17.0.35",

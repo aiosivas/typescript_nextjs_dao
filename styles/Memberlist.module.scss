@@ -1,0 +1,70 @@
+
+.headingonpage {
+  color: rgb(82,232,205);
+}
+
+  .responsivetable { 
+    padding-left: 0;
+    li {
+      padding: 30px 30px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0px;
+    }
+    .tablerow:nth-child(odd) {
+      background-color: rgba(37, 45, 46, 0.6);
+      color: #fff;
+    }
+    .tableheader {
+      background-color: #000;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #fff;
+    }
+    .tablerow {
+      background-color: #FAF9F6;
+      min-width: 800px;
+    }
+    .col1 {
+      flex-basis: 10%;
+    }
+    .col2 {
+      flex-basis: 40%;
+    }
+    .col3 {
+      flex-basis: 25%;
+    }
+    .col4 {
+      flex-basis: 25%;
+    }
+
+    @media all and (max-width: 767px) {
+      .tableheader {
+        display: none;
+      }
+      .tablerow{
+        
+      }
+      li {
+        display: block;
+      }
+      .col {
+        
+        flex-basis: 100%;
+        
+      }
+      .col {
+        display: flex;
+        padding: 10px 0;
+        &:before {
+          color: #6C7A89;
+          padding-right: 10px;
+          content: attr(data-label);
+          flex-basis: 50%;
+          text-align: right;
+        }
+      }
+    }
+  }
+

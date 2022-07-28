@@ -1,6 +1,5 @@
 import { useAddress, useNFTDrop, useToken } from "@thirdweb-dev/react";
 import { useEffect, useState } from "react";
-import { TokenHolderBalance } from "@thirdweb-dev/sdk";
 import useCheckMembership from "./useCheckMembership.hook";
 
 interface Member {
@@ -11,8 +10,8 @@ interface Member {
 
 const useMembers = () => {
 
-    const nftDrop = useNFTDrop("0x07Cf9b6DD8934DcdE747A8b9C0B017A6D7C2377f");
-    const token = useToken("0x14acA962Aed91E82D9549b04c951155CfD13DB28");
+    const nftDrop = useNFTDrop("0x097BE943F336cfFf3807C44b741de8dAC1c28a5e");
+    const token = useToken("0x6C223849bF662147d347cDD37C3585aCC52ae527");
     const address = useAddress();
     const isMember = useCheckMembership();
     

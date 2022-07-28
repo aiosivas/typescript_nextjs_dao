@@ -5,14 +5,13 @@ import useCheckMembership from "./useCheckMembership.hook";
 
 const useProposals = () => {
 
-    const vote = useVote("0xa9754dC4DBC31bB97AFEC7a24136819c10B3f304");
+    const vote = useVote("0xbFE2a6b4d2b67590068a9b0D6a6306c96C4934Fc");
     const address = useAddress();
     const isMember = useCheckMembership();
 
     const [proposals, setProposals] = useState<Proposal[] | undefined>([]);
 
     useEffect(() => {
-        // A simple call to vote.getAll() to grab the proposals.
         const getAllProposals = async () => {
           try {
             const proposalz = await vote?.getAll();
@@ -26,7 +25,7 @@ const useProposals = () => {
 
       useEffect(() => {
         console.log(proposals);
-    },[proposals])
+    }, [proposals])
 
     return proposals;
 }

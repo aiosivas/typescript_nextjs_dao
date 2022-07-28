@@ -1,8 +1,7 @@
 import { useAddress, useToken, useVote } from "@thirdweb-dev/react"
-import { ProposalExecutable, ProposalState, ProposalVote, VoteType } from "@thirdweb-dev/sdk"
+import { ProposalState, ProposalVote, VoteType } from "@thirdweb-dev/sdk"
 import { BigNumber } from "ethers"
 import { useEffect, useState } from "react"
-import { useHasVoted } from "../hooks/useCheckVote"
 import styles from '../styles/Layout.module.css'
 import {AddressZero} from "@ethersproject/constants"
 
@@ -30,9 +29,6 @@ export const ProposalCard = ({description, id, proposer, state, votes}: Proposal
       return str.substring(0, 6) + "..." + str.substring(str.length - 4);
     };
 
-    //vote?.events.addEventListener()
-    //const date = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`;
-
   useEffect(() => {
     if(state !== 1) setActive(false);
     else setActive(true);
@@ -50,6 +46,7 @@ export const ProposalCard = ({description, id, proposer, state, votes}: Proposal
       <h2>{state === 1 ? "ACTIVE" : state === 2 ? "CANCELED" : state === 3 ? "DEFEATED" : state === 4 ? "PASSED" : "NOT ACTIVE"}</h2>
       <p>{description}</p>
       <form onSubmit={async(e) => { //this is the code to execute proposals
+      //may outsource to openzeppelin autotask in near future
         e.preventDefault();
         e.stopPropagation();
 

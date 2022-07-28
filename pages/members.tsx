@@ -4,9 +4,7 @@ import Head from 'next/head'
 import { useState, useEffect } from 'react';
 import { MemberLI } from '../components/MemberLI'
 import useCheckMembership from '../hooks/useCheckMembership.hook';
-import { useGetVotes } from '../hooks/useGetVotes';
 import useMembers from '../hooks/useMembers.hook';
-import useProposals from '../hooks/useProposals.hook';
 import styles from '../styles/Memberlist.module.scss'
 
 
@@ -15,8 +13,6 @@ const Members: NextPage = () => {
     
     const isMember = useCheckMembership();
     const members = useMembers();
-    let votenum = 3;
-    //const votenum = useGetVotes();
 
     if(isMember) {
         return (
@@ -33,11 +29,10 @@ const Members: NextPage = () => {
                     <div className={styles.col + " " + styles.col1}>ID</div>
                     <div className={styles.col + " " + styles.col2}>Address</div>
                     <div className={styles.col + " " + styles.col3}>Token Amount</div>
-                    <div className={styles.col + " " + styles.col4}># of Votes</div>
                 </li>
                 {
                 members?.map((member) => {
-                    return <MemberLI key={member?.id} id={member?.id} address={member?.address} token={member?.token} votenum={votenum}/>
+                    return <MemberLI key={member?.id} id={member?.id} address={member?.address} token={member?.token}/>
                 })}</>
             </ul>
         </>

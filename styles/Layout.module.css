@@ -71,11 +71,16 @@ div .card {
   background-color: rgba(226, 227, 229, .5);
   color: #000;
   box-shadow: 3.1px 6.2px 6.2px hsl(0deg 0% 0% / 0.4);
-  background-opacity: 50%;
+  background-opacity: 20%;
   border: 1px solid #eaeaea;
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 500px;
+}
+
+.card textarea {
+  width: 400px;
+  height: 100px;
 }
 
 .card p {
@@ -86,12 +91,12 @@ div .card {
   display: flex;
   flex-direction: row;
   gap: 1rem;
+  margin: auto;
 }
 
 .card:hover,
 .card:focus,
 .card:active {
-  color: #39a0c0;
   border-color: #39a0c0;
 }
 

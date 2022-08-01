@@ -1,10 +1,8 @@
+import styles from '../styles/Layout.module.css'
 
-
-const useCreateProposal = () => {
+export const useCreateProposal = () => {
 
     //parse a json file with typical proposals
 
-  return;
+  return 1;
 }
-
-export default useCreateProposal;

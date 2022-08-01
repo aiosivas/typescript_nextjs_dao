@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "scripts/generatetestproposal.js", "scripts/initialize-thirdweb-sdk.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "scripts/generatetestproposal.mjs", "scripts/initialize-thirdweb-sdk.js"],
   "exclude": ["node_modules"]
 }

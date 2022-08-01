@@ -19,7 +19,11 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "^6.3.0",
+    "sec-to-format": "^1.0.0",
     "sharp": "^0.30.7",
+    "unix-timestamp-converter": "^1.1.0",
+    "web3": "^1.7.4",
+    "web3-ts-hooks": "^1.0.38",
     "web3modal": "^1.9.8"
   },
   "devDependencies": {

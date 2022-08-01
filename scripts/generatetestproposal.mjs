@@ -2,10 +2,10 @@ import sdk from "./initialize-thirdweb-sdk.js";
 import { ethers } from "ethers";
 
 // This is our governance contract.
-const vote = sdk.getVote("0xa9754dC4DBC31bB97AFEC7a24136819c10B3f304");
+const vote = sdk.getVote("0xbFE2a6b4d2b67590068a9b0D6a6306c96C4934Fc");
 
 // This is our ERC-20 contract.
-const token = sdk.getToken("0x14acA962Aed91E82D9549b04c951155CfD13DB28");
+const token = sdk.getToken("0x6C223849bF662147d347cDD37C3585aCC52ae527");
 
 (async () => {
   try {

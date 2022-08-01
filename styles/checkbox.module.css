@@ -1,15 +1,3 @@
-.container {
-    display: flex;
-}
-
-.left {
-    flex: 50%;
-}
-
-.right {
-    flex: 50%;
-}
-
 .checkbox input {
     position: absolute;
     opacity: 0;

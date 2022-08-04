@@ -2,6 +2,7 @@
   "name": "wdao",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,6 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@maticnetwork/maticjs": "^3.4.0-beta.0",
+    "@maticnetwork/maticjs-ethers": "^1.0.2",
     "@thirdweb-dev/react": "^2.5.1",
     "@thirdweb-dev/sdk": "^2.3.31",
     "@walletconnect/web3-provider": "^1.7.8",

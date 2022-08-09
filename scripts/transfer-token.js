@@ -28,7 +28,7 @@ const token = sdk.getToken("0x6C223849bF662147d347cDD37C3585aCC52ae527");
         let counter = 0;
 
         const airdropTargets = addresses.map((address) => {
-            console.log(`${amount[counter]} token to ${address}`)
+            console.log(`${amounts[counter]} token to ${address}`)
             const airdropTarget = {
                 toAddress: address,
                 amount: amounts[counter],
@@ -38,9 +38,10 @@ const token = sdk.getToken("0x6C223849bF662147d347cDD37C3585aCC52ae527");
         });
 
         //get user confirmation then transfer; if the list doesn't match your intended list, there was some error in your input format
-        askQuestion("continue? y/n (if the list doesn't seem right, one of your inputs may have been pasted wrong)").then(input => {
-            if(input === 'n') process.exit(1);
-        }).then(() => token.transferBatch(airdropTargets)).then(console.log("successfully transffered"))
+        const input = await askQuestion("n to exit, any other key to continue\n")
+        
+        if(input === 'n') process.exit(1);
+        token.transferBatch(airdropTargets).then(console.log("successfully transffered"))
 
 
     } catch (err) {

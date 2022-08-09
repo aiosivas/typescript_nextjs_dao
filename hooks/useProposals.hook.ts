@@ -9,12 +9,13 @@ const useProposals = () => {
     const address = useAddress();
     const isMember = useCheckMembership();
 
-    const [proposals, setProposals] = useState<Proposal[] | undefined>([]);
+    const [proposals, setProposals] = useState<Proposal[]>([]);
+    const [indexed, setIndexed] = useState<{proposal:Proposal, index:number}[]>([])
 
     useEffect(() => {
         const getAllProposals = async () => {
           try {
-            const proposalz = await vote?.getAll();
+            const proposalz = await vote?.getAll()!;
             setProposals(proposalz);
           } catch (error) {
             console.log("failed to get proposals", error);
@@ -24,10 +25,22 @@ const useProposals = () => {
       }, [address, isMember, vote]);
 
       useEffect(() => {
-        console.log(proposals);
+        let index:number = -1;
+        const indecksed = proposals?.map((proposal) => {
+          index++;
+          return {
+            proposal, index
+          }
+        })
+        setIndexed(indecksed)
     }, [proposals])
 
-    return proposals;
+    useEffect(() => {
+      console.log(indexed)
+    },[indexed])
+
+
+    return indexed;
 }
 
 export default useProposals;

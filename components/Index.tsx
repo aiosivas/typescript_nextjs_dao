@@ -1,45 +1,42 @@
-import styles from '../styles/Layout.module.css'
-import style from '../styles/index.module.scss'
-import useCheckMembership from "../hooks/useCheckMembership.hook"
-import { MintNft } from './MintNft';
-import { DisplayNFT } from './DisplayNFT';
-import { useAddress } from '@thirdweb-dev/react';
-import { Login } from './Login';
+import { Col, Row } from "antd"
+import { useNFT, ThirdwebNftMedia, useSignatureDrop, useOwnedNFTs, useAddress} from '@thirdweb-dev/react'
+import { useEffect, useState } from "react";
+import useMembers from "../hooks/useMembers.hook";
 
-export const Index = () => {
+export const Index = () =>  {
 
-    const isMember = useCheckMembership();
-    const address = useAddress();
+  const drop = useSignatureDrop("0xcC106Ba1DA94cD49B0e40850cf96BDccb5906fc9")
 
-  return (
-    <div className={style.container}>
-    <div className={style.left}>
-      <div className={styles.card}>
-        {!address && 
-        <>
-            <h2>To enter the DAO and view the dashboard:</h2>
-            <p>1. Connect your Metamask wallet on Polygon Mainnet</p>
-            <p>2. Mint your membership NFT</p>
-            <Login />
-        </>
+  const address = useAddress();
+  const members = useMembers();
+
+  const [id, setId] = useState<string>("0");
+
+  useEffect(() => {
+    const getnft = async () => {
+      members?.every((member) => {
+        if(address === member.address){
+          setId(String(member.id)) 
+          return false;
         }
-        {!isMember && address && <MintNft />}
-        {isMember && <DisplayNFT />}
-      </div>
-    </div>
-    <div className={style.middle}>
-      <div className={styles.card}>
-          <p>If you want to be on whitelist, click here to</p>
-          <button>Contact Us</button>
-      </div>
-    </div>
-    <div className={style.right}>
-          <div className={styles.card}>
-          <p>View DAO Whitepaper</p>
-          <button>View</button>
-      </div>
-    </div>
+        return true;
+      })
+    }
+    getnft()
+  },[members])
 
-    </div>
-  )
+  const {data: nft, isLoading, error } = useNFT(drop, id)
+
+  return (<>
+    <Row style={{paddingTop: 50}}>
+      <Col offset={11} span={8}>
+        <h1>Welcome to WeaveDAO</h1>
+      </Col>
+    </Row>
+    <Row style={{paddingTop: 50}}>
+        <Col offset={10} span={8}>
+          {nft && <ThirdwebNftMedia style={{height:300, width:300}}metadata={nft.metadata} />}
+        </Col>
+    </Row>
+  </>)
 }

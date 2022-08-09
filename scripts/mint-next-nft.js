@@ -1,5 +1,5 @@
-//script to transfer addresses some WDT
-//usage: node scripts/airdrop-token.js <address> <amount> [<address> <amount> ...]
+//script to mint nft to an address
+//usage: node scripts/mint-next-nft.js <address> [<address> ...]
 
 import sdk from './initialize-thirdweb-sdk.js'
 import readline from 'readline'
@@ -10,7 +10,7 @@ const nftDrop = sdk.getNFTDrop("0x097BE943F336cfFf3807C44b741de8dAC1c28a5e");
     let addresses = [];
     try {
         process.argv.forEach((arg) => {
-            if(arg.search(/^0x[a-fA-F0-9]{40}$/) === 0){ //check for eth address
+            if(arg.search(/^0x[a-fA-F0-9]{40}$/) !== 0){ //check for eth address
                 addresses.push(arg);
             } else return;
         });

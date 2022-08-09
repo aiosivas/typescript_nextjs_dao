@@ -1,7 +1,5 @@
-import { useAddress, useNFTDrop, useVote } from '@thirdweb-dev/react';
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState, useEffect } from 'react';
 import { MemberLI } from '../components/MemberLI'
 import useCheckMembership from '../hooks/useCheckMembership.hook';
 import useMembers from '../hooks/useMembers.hook';
@@ -9,8 +7,7 @@ import styles from '../styles/Memberlist.module.scss'
 
 
 const Members: NextPage = () => {
-
-    
+ 
     const isMember = useCheckMembership();
     const members = useMembers();
 

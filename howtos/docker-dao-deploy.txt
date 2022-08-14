@@ -1,0 +1,24 @@
+TODO: automation for new releases
+
+*** Push new docker image
+
+Manual:
+- login to cloud
+  gcloud auth login
+
+
+- check latest version of node in https://console.cloud.google.com/gcr/images/weavechain/global/weavedao
+
+- prepare the node docker image from weavechainmisc repo folder
+on windows
+  cd t:\rprog\weavechain\weavechainmisc\
+  docker build -t weavedao:latest -f Dockerfile.prodssl .
+
+- deploy new version
+  docker tag weavedao gcr.io/weavechain/weavedao:1.2
+  docker push gcr.io/weavechain/weavedao:1.2
+  docker tag weavedao gcr.io/weavechain/weavedao:latest
+  docker push gcr.io/weavechain/weavedao:latest
+
+- eventually, local test run (expecting certificate failure):
+  docker run -d -p 443:443 weavedao:latest

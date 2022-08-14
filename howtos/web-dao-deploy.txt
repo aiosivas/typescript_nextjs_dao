@@ -1,0 +1,49 @@
+- make sure the docker image is up to date, if not follow the steps in docker-dao-deploy.txt
+
+- login to cloud
+  gcloud auth login
+
+- login to target machine
+  gcloud compute --project weavechain ssh --zone "us-central1-a" prod-dao
+
+- deploy server
+  sudo docker stop weavedao
+  sudo docker rm weavedao
+  sudo docker pull gcr.io/weavechain/weavedao:latest
+
+- one time: 
+  mkdir -p ~/certs
+  mkdir -p ~/logs/nginx
+  sudo docker volume create nginx_logs
+
+- copy certificates to server
+  gcloud compute --project weavechain scp --recurse --zone "us-central1-a" nginx/fullchain.pem Admin@prod-dao:/home/Admin/certs/
+  gcloud compute --project weavechain scp --recurse --zone "us-central1-a" nginx/privkey.pem Admin@prod-dao:/home/Admin/certs/
+- then, on the prod-dao server:
+  chmod 700 /home/Admin/certs/privkey.pem
+
+- start server
+  sudo docker run -d --mount type=bind,src=/home/Admin/certs,dst=/etc/ssl/certs --mount type=bind,src=/home/Admin/logs/nginx,dst=/var/log/nginx --name weavedao -p 10.128.0.13:443:443 -p 10.128.0.13:80:80 gcr.io/weavechain/weavedao:latest
+
+- test
+  https://dao.weavechain.com/
+
+Others:
+
+- if no docker installed, see https://tomroth.com.au/gcp-docker/
+  sudo apt update
+  sudo apt install --yes apt-transport-https ca-certificates curl gnupg2 software-properties-common
+  curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+  sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+  sudo apt update
+  sudo apt install --yes docker-ce
+- eventually
+  sudo usermod -aG docker $USER
+
+
+- make sure that crontab has restart enabled:
+@reboot /home/Admin/scripts/start.sh
+
+- where start.sh does:
+sudo docker start weavedao
+

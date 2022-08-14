@@ -45,7 +45,6 @@ export default async function generateMintSignature(
                 signedPayload: signedPayload
             })
           }
-
     } catch (err){
       res.status(500).json({
         error: err,

@@ -1,37 +1,16 @@
-.container {
+.list {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 60%;
+    margin: auto;
+    justify-content: space-between;
 }
 
-.left {
-    flex: 50%;
-}
+.header {
+    h1 {
+        color: #fff;
+    }
 
-.right {
-    flex: 50%;
+    margin-top: 50px;
 }
-
-.checkbox input {
-    position: absolute;
-    opacity: 0;
-  }
-  
-  .checkbox .overlay {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 24px;
-    width: 24px;
-    background-color: #F39C12;
-    border-radius: 8px;
-    border: 2px solid #F39C12;
-  }
-  
-  .checkbox .overlay .icon {
-    color: white;
-  }
-  
-  .checkbox .overlay.checked {
-    border-radius: 8px;
-    opacity: 1;
-    border: 2px solid #F39C12;
-  }

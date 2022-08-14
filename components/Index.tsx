@@ -14,7 +14,7 @@ export const Index = () =>  {
 
   useEffect(() => {
     const getnft = async () => {
-      members?.every((member) => {
+      members?.forEach((member) => {
         if(address === member.address){
           setId(String(member.id)) 
           return false;

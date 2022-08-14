@@ -1,5 +1,5 @@
 .right {
     display: 'flex';
     width: 'max-content';
-    justifyContent: 'flex-end';
+    justify-content: 'flex-end';
 }

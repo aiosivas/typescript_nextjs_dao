@@ -1,4 +1,4 @@
-import { Proposal, ProposalState, VoteType } from "@thirdweb-dev/sdk";
+import { ProposalState, VoteType } from "@thirdweb-dev/sdk";
 import { useInfiniteScroll } from "ahooks";
 import { Data } from "ahooks/lib/useInfiniteScroll/types";
 import { GetServerSideProps, GetStaticProps } from "next";
@@ -8,25 +8,22 @@ import useProposals from "../hooks/useProposals.hook";
 import { ProposalCard } from "./ProposalCard";
 
 interface InfiniteScrollDivProps {
-  list: ProposalProps,
-  viewall: boolean,
+  list: Proposal[],
   nextId?: string | undefined
 }
 
-interface ProposalProps {
-  proposals: {
-      description: string,
-     endBlock: string,
-      proposalId: string,
-      proposer: string,
-      startBlock: string,
-      state: ProposalState,
-      votes: string[],
-      index:number 
-  }[]
+interface Proposal {
+  description: string,
+  endBlock: string,
+   proposalId: string,
+   proposer: string,
+  startBlock: string,
+   state: ProposalState,
+   votes: string[],
+   index:number 
 }
 
-export const InfiniteScrollDiv = ({list, viewall, nextId}: InfiniteScrollDivProps) => {
+export const InfiniteScrollDiv = ({list, nextId}: InfiniteScrollDivProps) => {
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -34,27 +31,24 @@ export const InfiniteScrollDiv = ({list, viewall, nextId}: InfiniteScrollDivProp
     const proposals = useProposals();
     const [loaded, setLoaded] = useState<number>(0)
     const [loded, setLoded] = useState<boolean>(false)
-    const [listlength, setListlength] = useState<number>(list.proposals.length)
 
     const ref2 = useRef<number>(0);
 
-    const getLoadMoreList = (nextId:string | undefined, limit: number): Promise<Data> => {
+    const getLoadMoreList = (nextId:number | undefined, limit: number): Promise<Data> => {
       let start = 0;
       if (nextId) {
-        start = list.proposals.findIndex((i) => {
-          i.index.toString() === nextId
+        start = list.findIndex((i) => {
+          i.index === nextId
         });
       }
       const end = start + limit;
-      const loadinglist = list.proposals.slice(start, end);
-      const nId = list.proposals.length >= end ? list.proposals[end] : undefined;
+      const loadinglist = list.slice(start, end);
+      const nId = list.length >= end ? list[end] : undefined;
       return new Promise((resolve) => {
-        setTimeout(() => {
           resolve({
             list: loadinglist,
             nextId: nId,
           });
-        }, 1000);
       });
     }
 
@@ -70,15 +64,12 @@ export const InfiniteScrollDiv = ({list, viewall, nextId}: InfiniteScrollDivProp
   if(loading) return <div>Loading Scroll</div>
   return (
     <div ref={ref} style={{height:500, overflow:'auto'}} key='refdiv'>
+      <>
           {data?.list?.map((item, index, arr) => {
-            if(!viewall){
               console.log("list data: ", arr)
-                if (item.state === 1)
-                    return <><ProposalCard key={item.proposalId.toString()} description={item.description} id={item.proposalId} proposer={item.proposer} state={item.state} votes={item.votes} startBlock={item.startBlock} endBlock={item.endBlock} index={index}/></> 
-            } else {
-                return <><ProposalCard key={item.proposalId.toString()} description={item.description} id={item.proposalId} proposer={item.proposer} state={item.state} votes={item.votes} startBlock={item.startBlock} endBlock={item.endBlock} index={index}/></> 
-            }
+              return {item}
         })}
+      </>
       {noMore && <span>No more proposals</span>}
     </div>
   )

@@ -7,7 +7,9 @@ import {AddressZero} from "@ethersproject/constants"
 import Web3 from 'web3'
 import secToFormat from "sec-to-format"
 import { Button, Col, Descriptions, Form, PageHeader, Progress, Radio, Row, Space, Statistic } from "antd"
-import style from '../styles/header.module.css'
+import s from '../styles/proposals.module.scss'
+import { Router } from "react-router-dom"
+import { useRouter } from "next/router"
 
 const time = require('unix-timestamp-converter')
 
@@ -32,13 +34,14 @@ const Content: React.FC<{ children: React.ReactNode; extra: React.ReactNode }> =
   </div>
 );
 
-export const ProposalCard = ({description, id, proposer, state, votes, startBlock, endBlock}: Proposal) => {
+export const ProposalCard = ({description, id, proposer, state, votes, startBlock, endBlock, index}: Proposal) => {
 
     const token = useToken("0x6C223849bF662147d347cDD37C3585aCC52ae527");
     const vote = useVote("0xbFE2a6b4d2b67590068a9b0D6a6306c96C4934Fc");
     const address = useAddress();
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545")
     const [form] = Form.useForm();
+    const router = useRouter();
     
     const [isVoting, setIsVoting] = useState<boolean>(false);
     const [delegating, setDelegating] = useState<boolean>(false);
@@ -155,32 +158,26 @@ export const ProposalCard = ({description, id, proposer, state, votes, startBloc
 
   return (
     <>
-      <PageHeader className="site-page-header-responsive" backIcon={false} title={getPropStateEng(state)} subTitle={"by " + proposer} extra={
-        <Space direction="vertical" style={{display: 'flex', textAlign: 'center'}}>
-          <Form onFinish={submitVote} layout='horizontal' form={form}>
-          <Form.Item name="vote">
-            <Radio.Group value='horizontal'>
-              <Radio.Button value="yes">Yes</Radio.Button>
-              <Radio.Button value="abstain">Abstain</Radio.Button>
-              <Radio.Button value="no">No</Radio.Button>
-            </Radio.Group>
-          </Form.Item>
-          </Form>
-          <Button style={{margin: "auto"}} key="2" onClick={() => form.submit()} disabled={isVoting || hasVoted || !active}>{isVoting ? "Voting..." : hasVoted ? "Voted!" : "Submit"}</Button></Space>  
-        } 
-        footer={[
-          <Progress percent={percenttilldone} showInfo={false}
-            status={(percenttilldone < 30 ? "exception" : "active")} />,
-          ]}>
-        <Content extra>
-          <Descriptions size="small" column={4}>
-            <Descriptions.Item span={description.length < 145 ? 1 : 2} label="Description">{description}</Descriptions.Item>
-            {description.length < 145 ? <Descriptions.Item> </Descriptions.Item> :null}
-            <Descriptions.Item label="Created">{startTime}</Descriptions.Item>
-            <Descriptions.Item label="Time Left">{endTime < 0 ? "0" : endTime} blocks</Descriptions.Item>
-          </Descriptions>
-        </Content>
-      </PageHeader>
+    <div className={s.contentcard} onClick={() => router.push(`/proposals/${index}?id=${id}&state=${state}&blocksleft=${percenttilldone}&type=text`)}>
+      <div className={s.head}>
+            <span># {index}</span>
+            <span className={s.type}>Text</span>
+      </div>
+      <div className={s.main}>
+        <span className={s.status}>{getPropStateEng(state)}</span>
+      </div>
+      <div className={s.main}>
+          <span>Created by: {shortenAddress(address!)}</span>
+          <span></span>
+      </div>
+      <div className={s.main}>
+        <span>{description}</span>
+      </div>
+      <div className={s.main}>
+        <Progress percent={percenttilldone} showInfo={false}
+            status={(percenttilldone < 30 ? "exception" : "active")} />
+      </div>
+    </div>
     </>
   )
 }

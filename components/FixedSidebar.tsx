@@ -4,7 +4,8 @@ import { TeamOutlined, ScheduleOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import 'antd/dist/antd.css'
-import style from '../styles/sidebar.module.css'
+import s from '../styles/sidebar.module.scss'
+import { useState } from 'react';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -41,11 +42,13 @@ export const FixedSidebar = () => {
 
     const router = useRouter();
 
+    const [menumode, setMenumode] = useState<'vertical' | 'inline'>('inline')
+
     const onClick: MenuProps['onClick'] = e => {
         console.log(e)
         if(e.key === '2') router.push('/profile')
         else if(e.key === '3') router.push('/members')
-        else if(e.key === '5') router.push('/vote')
+        else if(e.key === '5') router.push('/proposals')
         else if(e.key === '6') router.push('/create')
     };
 
@@ -59,10 +62,8 @@ export const FixedSidebar = () => {
       bottom: 0,
     }}
   >
-    <div style={{marginTop: '30vh', textAlign:'center', cursor:'pointer'}} className={style.logo} onClick={() => {
-      router.push('/')
-    }}><h1>Navigation</h1></div>
-    <Menu onClick={onClick} theme='dark' mode='inline' items={items} />
+    <img className={s.logo} onClick={() => router.push('/')} src={'/../app-logo.svg'} alt="Weavechain Logo" width='180' height='100' style={{marginTop: -16}}/>
+    <Menu style={{marginTop: '23vh'}} onClick={onClick} theme='dark' mode='inline' items={items} />
   </Sider>
   )
 }

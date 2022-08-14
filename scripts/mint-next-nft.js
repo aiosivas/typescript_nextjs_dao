@@ -4,7 +4,7 @@
 import sdk from './initialize-thirdweb-sdk.js'
 import readline from 'readline'
 
-const nftDrop = sdk.getNFTDrop("0x097BE943F336cfFf3807C44b741de8dAC1c28a5e");
+const drop = sdk.getSignatureDrop("0xcC106Ba1DA94cD49B0e40850cf96BDccb5906fc9")
 
 (async () => {
     let addresses = [];
@@ -24,7 +24,7 @@ const nftDrop = sdk.getNFTDrop("0x097BE943F336cfFf3807C44b741de8dAC1c28a5e");
         askQuestion("continue? y/n ").then(input => {
             if(input === 'n') process.exit(1);
         }).then(addresses.forEach(address => {
-            nftDrop.claimTo(address, 1);
+            drop.claimTo(address, 1);
         })).then(console.log("successfully minted!"))
 
 

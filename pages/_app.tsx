@@ -1,4 +1,4 @@
-//import '../styles/globals.css'
+import '../styles/globals.css'
 import 'antd/dist/antd.css'
 import type { AppProps } from 'next/app'
 import { Layout } from 'antd'
@@ -9,6 +9,7 @@ import { FixedFooter } from '../components/FixedFooter';
 import useCheckMembership from '../hooks/useCheckMembership.hook';
 import { MintNft } from '../components/MintNft';
 import { useEffect } from 'react';
+import { NFTGate } from '../components/NFTGate'
 
 const activeChainId = ChainId.Polygon;
 
@@ -28,12 +29,13 @@ function MyApp({ Component, pageProps }: AppProps) {
       }} desiredChainId={activeChainId}>
           <Layout>
             <FixedSidebar />
-            <Layout>
+            <Layout style={{
+                backgroundColor: '#2D2D2E'
+            }}>
               <FixedHeader />
-              <Content>
-                <Component {...pageProps} />
-              </Content>
-              <FixedFooter />
+                <NFTGate>
+                  <Component {...pageProps} />
+                </NFTGate>
             </Layout>
           </Layout>
         </ThirdwebProvider> 

@@ -18,9 +18,9 @@ export const useGetVotes = () => {
             members?.forEach(async ({address}) => {
                 console.log("memberaddy: " + address)
                 let votenum:number = 0;
-                proposals?.forEach(async ({proposalId}) => {
+                proposals?.forEach(async (proposal) => {
                     console.log(isSubscribed +" a");
-                    const votez = await vote?.hasVoted(proposalId.toString(),address);
+                    const votez = await vote?.hasVoted(proposal.proposal.proposalId.toString(),address);
                     if(votez) votenum = votenum + 1;
                 })
                 setVotes((prev) => {

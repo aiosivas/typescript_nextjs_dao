@@ -6,6 +6,7 @@ import Image from 'next/image';
 import 'antd/dist/antd.css'
 import s from '../styles/sidebar.module.scss'
 import { useState } from 'react';
+import { FaDiscord } from 'react-icons/fa'
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -64,6 +65,10 @@ export const FixedSidebar = () => {
   >
     <img className={s.logo} onClick={() => router.push('/')} src={'/../app-logo.svg'} alt="Weavechain Logo" width='180' height='100' style={{marginTop: -16}}/>
     <Menu style={{marginTop: '23vh'}} onClick={onClick} theme='dark' mode='inline' items={items} />
+    <div className={s.navlogos} style={{marginTop: '23vh', display:'flex', justifyContent:'space-around'}}>
+      <FaDiscord onClick={() => {}} style={{width: 50, height: 50}} />
+    </div>
+
   </Sider>
   )
 }

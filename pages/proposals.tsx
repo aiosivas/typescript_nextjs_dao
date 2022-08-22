@@ -141,9 +141,9 @@ Proposals.getInitialProps = async ( {req, err}: NextPageContext) => {
 
         const proposals = await vote?.getAll();
 
-        let index:number = 0;
-        const serializable = proposals?.map((proposal, index) => {
-            index++;
+        let ind:number = -1;
+        const serializable = proposals?.map((proposal) => {
+            ind++;
             return {
                 description: proposal.description,
                 endBlock: proposal.endBlock.toHexString(),
@@ -156,7 +156,7 @@ Proposals.getInitialProps = async ( {req, err}: NextPageContext) => {
                     proposal.votes[1].count.toHexString(),
                     proposal.votes[2].count.toHexString()
                     ],
-                index
+                index: ind
             }
         });
 

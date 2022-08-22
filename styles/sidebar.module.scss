@@ -3,3 +3,11 @@
     cursor: pointer;
   }
 }
+
+.navlogos {
+  &:hover {
+    cursor: pointer;
+    color: #fff;
+    transition: 'ease' 0.2s;
+  }
+}

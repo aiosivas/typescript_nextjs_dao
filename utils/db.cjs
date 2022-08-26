@@ -19,9 +19,9 @@ const serverdbinfo = {
     port: 5432,
 }
 
-const insertDiscInfo = async (name, version) => {
+const insertDiscInfo = async (name, address, version) => {
     const pool = new Pool(localdbinfo);
-    await pool.query(`INSERT INTO signerinfo(discord_name,tos_version) VALUES ('${name}',${version})`, (err, res) => {
+    await pool.query(`INSERT INTO signerinfo(discord_name,wallet_address,tos_version) VALUES ('${name}','${address}',${version})`, (err, res) => {
         console.log(err, res);
         pool.end();
     });

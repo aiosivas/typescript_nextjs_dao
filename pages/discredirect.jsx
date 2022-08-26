@@ -1,15 +1,28 @@
 
 const tosversion = 0.1;
-import db from '../utils/db.cjs'
+import { useEffect } from 'react';
+import {insertSignerInfo} from '../utils/db.cjs'
 
 const Discredirect = () => {
 
     const address = useAddress();
+    const router = useRouter();
+
+    const {code} = router.query;
+
+    useEffect(() => {
+        const token = await exchangeCodeForToken(code);
+        const username = await exchangeTokenForIdentity(token);
+
+        await insertSignerInfo(username, address, tosversion);
+
+        router.push('/');
+    },[address])
 
     return <>Redirecting...</>
 }
 
-export const getServerSideProps = async(context) => {
+/*export const getServerSideProps = async(context) => {
     const { code } = context.query;
     console.log("code: ", code)
     try {
@@ -17,7 +30,7 @@ export const getServerSideProps = async(context) => {
         const token = await exchangeCodeForToken(code);
         const username = await exchangeTokenForIdentity(token);
 
-        await db.insertDiscInfo(username, tosversion);
+        await db.insertSignerInfo(username, address, tosversion);
 
         return {
             redirect: {
@@ -32,7 +45,7 @@ export const getServerSideProps = async(context) => {
         }
     }
 
-}
+}*/
 
 const exchangeCodeForToken = async (code) => {
     

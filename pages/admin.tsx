@@ -1,4 +1,5 @@
 import { useAddress } from "@thirdweb-dev/react"
+import Checkbox from "antd/lib/checkbox/Checkbox";
 import { NextPage } from "next"
 import { useEffect, useState } from "react";
 
@@ -37,13 +38,18 @@ const Admin:NextPage = () => {
 
     return (
         <div>
-            <div>
-                <>{dbdata && dbdata.map(item => {
-                    return (<>
-                        {item.signtime}
-                    </>)
-                })}</>
-            </div>
+            <ul>
+                {dbdata && dbdata.map(item => {
+                    return (
+                    <ul key={item.id} style={{display: 'flex', justifyContent: 'space-between'}}>
+                        <li><Checkbox /></li>
+                        <li>{item.discord_name}</li>
+                        <li>
+                            {item.signtime}
+                        </li>
+                    </ul>)
+                })}
+            </ul>
         </div>
     )
 

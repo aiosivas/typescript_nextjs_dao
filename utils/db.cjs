@@ -19,7 +19,7 @@ const serverdbinfo = {
     port: 5432,
 }
 
-const insertSingerInfo = async (name, version) => {
+const insertDiscInfo = async (name, version) => {
     const pool = new Pool(localdbinfo);
     await pool.query(`INSERT INTO signerinfo(discord_name,tos_version) VALUES ('${name}',${version})`, (err, res) => {
         console.log(err, res);
@@ -27,24 +27,14 @@ const insertSingerInfo = async (name, version) => {
     });
 }
 
-
-const get = async () => {
-    try {
-        const queryResult = await pool.query('SELECT * FROM signerinfo', (err, res) => {
-            console.log(err, res?.rows);
-            const returnobj = new Promise((resolve, reject) => {
-                resolve(res?.rows)
-            });
-        });
-    } catch (err) {
-        console.log(err);
-    }
-    return;
+const insertAddress = async address => {
+    const pool = new Pool(localdbinfo);
+    await pool.query(`INSERT INTO signerinfo(address) VALUES ('${address}')`, (err, res) => {
+        console.log(err, res);
+        pool.end();
+    });
 }
 
-const query = new Promise((resolve, reject) => {
-
-})
 //must use promise for async module export
 const getAll = new Promise(async (resolve, reject) => {
     const pool = new Pool(localdbinfo);
@@ -58,4 +48,4 @@ const getAll = new Promise(async (resolve, reject) => {
     }
 });
 
-module.exports = {insertSingerInfo, getAll}
+module.exports = {insertDiscInfo, getAll, insertAddress}

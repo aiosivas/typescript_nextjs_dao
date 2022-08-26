@@ -2,7 +2,8 @@ import { Button, Checkbox } from "antd"
 import { NextPage } from "next"
 import { useRouter } from "next/router";
 import { useState } from "react";
-const oauthurl = "https://discord.com/api/oauth2/authorize?client_id=1009974221407014962&redirect_uri=http%3A%2F%2Flocalhost%3A53134&response_type=code&scope=identify"
+import { insertAddress } from "../utils/db.cjs"
+const oauthurl = "https://discord.com/api/oauth2/authorize?client_id=1009974221407014962&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdiscredirect&response_type=code&scope=identify"
 
 const TOS:NextPage = () => {
 

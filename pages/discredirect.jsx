@@ -11,10 +11,13 @@ const Discredirect = () => {
     const {code} = router.query;
 
     useEffect(() => {
-        const token = await exchangeCodeForToken(code);
-        const username = await exchangeTokenForIdentity(token);
-
-        await insertSignerInfo(username, address, tosversion);
+        const getDiscAndPutInDB = async () => {
+            const token = await exchangeCodeForToken(code);
+            const username = await exchangeTokenForIdentity(token);
+    
+            await insertSignerInfo(username, address, tosversion);
+        }
+        getDiscAndPutInDB();
 
         router.push('/');
     },[address])
